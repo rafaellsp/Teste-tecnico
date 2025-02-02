@@ -1,10 +1,16 @@
-# Entrada do usuário
-texto = input("Digite uma string: ")
+while True:
+    # Entrada do usuário
+    texto = input("Digite uma string (ou 'sair' para encerrar): ")
 
-# Inverter a string manualmente
-invertida = ""
-for i in range(len(texto) - 1, -1, -1):
-    invertida += texto[i]
+    # Verifica se o usuário deseja sair
+    if texto.lower() == "sair":
+        print("Programa encerrado.")
+        break  # Sai do loop
 
-# Exibir o resultado
-print(f"String invertida: {invertida}")
+    # Inverter a string manualmente
+    invertida = ""
+    for i in range(len(texto) - 1, -1, -1):
+        invertida += texto[i]
+
+    # Exibir o resultado
+    print(f"String invertida: {invertida}\n")
