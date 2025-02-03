@@ -1,26 +1,38 @@
 import json
 
-# Ler o arquivo JSON
-with open("faturamento.json", "r") as file:
-    data = json.load(file)
+# Carregar os dados do JSON
+with open("dados.json", "r") as file:
+    dados = json.load(file)
 
-# Extrair os valores de faturamento
-faturamento_diario = data["faturamento"]
+# Filtrar apenas os dias com faturamento acima de zero
+faturamentos = [dia["valor"] for dia in dados if dia["valor"] > 0]
 
-# Remover dias sem faturamento (valores 0)
-dados_validos = [valor for valor in faturamento_diario if valor > 0]
+# Calcular menor e maior faturamento
+menor_faturamento = min(faturamentos)
+maior_faturamento = max(faturamentos)
 
-# Verificar se há dados válidos
-if not dados_validos:
-    print("Nenhum dado de faturamento disponível para análise.")
-else:
-    # Cálculos
-    menor_faturamento = min(dados_validos)
-    maior_faturamento = max(dados_validos)
-    media_mensal = sum(dados_validos) / len(dados_validos)
-    dias_acima_da_media = sum(1 for valor in dados_validos if valor > media_mensal)
+# Calcular média mensal (ignorando dias sem faturamento)
+media_mensal = sum(faturamentos) / len(faturamentos)
 
-    # Exibir os resultados
-    print(f"Menor faturamento diário: R$ {menor_faturamento:.2f}")
-    print(f"Maior faturamento diário: R$ {maior_faturamento:.2f}")
-    print(f"Número de dias com faturamento acima da média: {dias_acima_da_media}")
+# Contar dias com faturamento acima da média
+dias_acima_da_media = sum(1 for valor in faturamentos if valor > media_mensal)
+
+# Exibir resultados
+print(f"Menor faturamento: R$ {menor_faturamento:.2f}")
+print(f"Maior faturamento: R$ {maior_faturamento:.2f}")
+print(f"Dias com faturamento acima da média: {dias_acima_da_media}")
+
+# Função para inverter uma string
+def inverter_string():
+    while True:
+        texto = input("Digite uma string (ou 'sair' para encerrar): ")
+        if texto.lower() == "sair":
+            print("Programa encerrado.")
+            break
+        invertida = ""
+        for i in range(len(texto) - 1, -1, -1):
+            invertida += texto[i]
+        print(f"String invertida: {invertida}\n")
+
+# Executar a função de inversão de string
+inverter_string()
